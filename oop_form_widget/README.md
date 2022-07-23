@@ -7,6 +7,7 @@ An Object-Oriented Approach to creating forms. To create a form, firstly create 
 Then choose which object you want to represent the type of input.
 - SubmitInput
 - TextInput
+
 Bootstrap classes can be applied with an index array of strings that contain the classes to be applied.
 
 ```
