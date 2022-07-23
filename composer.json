@@ -1,0 +1,15 @@
+{
+    "name": "antbon99/oop_form_widget",
+    "autoload": {
+        "psr-4": {
+            "Html\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anthony",
+            "email": "bonsilaoanthony@gmail.com"
+        }
+    ],
+    "require": {}
+}
