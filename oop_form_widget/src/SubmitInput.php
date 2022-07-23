@@ -4,17 +4,24 @@ namespace Html;
 
 class SubmitInput extends Input
 {
-    private string $buttonText;
+    private string $submitText = '';
 
-    public function __construct(string $name, mixed $id, string $buttonText)
+    public function __construct(string $name, string $placeholder, mixed $id)
     {
-        parent::__construct($name, $id);
-        $this->buttonText = $buttonText;
+        parent::__construct($name, $placeholder, $id);
     }
 
-    public function render() : string
+    public function create() : string
     {
-        return sprintf('<input type="submit" name="%s" id="%s" value="%s"><br>',
-            $this->name, $this->id, $this->buttonText);
+        return sprintf('<input class="%s" type="submit" name="%s" id="%s" value="%s">',
+            $this->bootstrap(), $this->name,  $this->id, $this->submitText);
+    }
+
+    /**
+     * @param string $submitText
+     */
+    public function setSubmitText(string $submitText): void
+    {
+        $this->submitText = $submitText;
     }
 }

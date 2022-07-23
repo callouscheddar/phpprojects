@@ -4,18 +4,25 @@ namespace Html;
 
 class TextInput extends Input
 {
-    private string $labelName;
+    private string $value = '';
+    private bool $isSticky = false;
 
-    public function __construct(string $name, mixed $id, string $labelName)
+    public function __construct(string $name, string $placeholder, mixed $id)
     {
-        parent::__construct($name, $id);
-        $this->labelName = $labelName;
+        parent::__construct($name, $placeholder, $id);
     }
 
-    public function render() : string
-    {
-        $label = "<label id='$this->id'>$this->labelName</label>";
-        $input = sprintf('<input type="text" name="%s" id="%s"><br>', $this->name, $this->id);
-        return $label . $input;
+    public function isSticky() {
+        $this->isSticky = true;
+    }
+
+    public function create() : string {
+        // If the value is set, apply that value to our input making it 'sticky'
+        if (isset($_REQUEST[$this->name]) && $this->isSticky) {
+            $this->value = htmlspecialchars($_REQUEST[$this->name]) ;
+        }
+        //  Check if bootstrap exists,
+        return sprintf('<input class="%s" type="text" name="%s" id="%s" placeholder="%s" value="%s">',
+            $this->bootstrap(), $this->name, $this->id, $this->placeholder, $this->value);
     }
 }

@@ -11,10 +11,24 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Html as App;
 
-$form = new App\Form();
-$form->registerInput(new App\TextInput("candy", "candy_id", "Candy Name"));
-$form->registerInput(new App\NumberInput("candy_amount", "candy_amount_id", "Candy Amount", 1, 150));
-$form->registerInput(new App\SubmitInput("submit", "submit_id", "Submit"));
+/*
+ * Create a form object w/ desired parameters.
+ * Create an input by creating an object of desired input type, and filling in
+ * necessary properties. Lastly, register the inputs in the form object.
+ */
+
+$form = new App\Form("", "POST");
+
+$candyText = new App\TextInput("candy_text", "Favorite Candy", "candy_text_id");
+$candyText->setBootstrap(['form-control', 'w-50', 'm-auto', 'd-block', 'mt-2']);
+$candyText->isSticky();
+
+$candyBut = new App\SubmitInput('candy_submit', '', 'candy_submit_id');
+$candyBut->setBootstrap(['btn', 'btn-primary', 'mt-2']);
+$candyBut->setSubmitText("Submit");
+
+$form->registerInput($candyText);
+$form->registerInput($candyBut);
 //$form->printInputs();
 
 ?>
@@ -26,6 +40,8 @@ $form->registerInput(new App\SubmitInput("submit", "submit_id", "Submit"));
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <title>OOP Form Widget</title>
     <style>
         * {
@@ -47,6 +63,7 @@ $form->registerInput(new App\SubmitInput("submit", "submit_id", "Submit"));
 <div class="center">
     <h1>OOP Form Widget</h1>
     <?= $form->render(); ?>
+    <?= $form->formData() ?>
 </div>
 </body>
 

@@ -28,7 +28,19 @@ class Form
 
     public function render() : string
     {
-        $inputs = implode(PHP_EOL,  array_map(fn($el) => $el->render(), $this->inputs));
+        $inputs = implode(PHP_EOL,  array_map(fn($el) => $el->create(), $this->inputs));
         return sprintf('<form action="%s" method="%s" >%s</form>', $this->action, $this->method, $inputs);
+    }
+
+    public function formData() : void
+    {
+        // Loop through inputs, and grab their names
+        echo "<h3>Form Data From Request:</h3>";
+        foreach ($this->inputs as $input)  {
+            if (isset($_REQUEST[$input->getName()])) {
+                echo '<p>'.$input->getName().': '.$_REQUEST[$input->getName()].'</p>';
+            }
+
+        }
     }
 }
