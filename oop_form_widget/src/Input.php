@@ -8,12 +8,10 @@ abstract class Input
     protected string $name;
     protected mixed $id;
     protected mixed $value;
-    protected string $labelName;
 
-    public function __construct(string $name, mixed $id, string $labelName)
+    public function __construct(string $name, mixed $id)
     {
         $this->name = $name;
         $this->id = $id;
-        $this->labelName = $labelName;
     }
 }

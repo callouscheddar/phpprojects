@@ -14,6 +14,7 @@ use Html as App;
 $form = new App\Form();
 $form->registerInput(new App\TextInput("candy", "candy_id", "Candy Name"));
 $form->registerInput(new App\NumberInput("candy_amount", "candy_amount_id", "Candy Amount", 1, 150));
+$form->registerInput(new App\SubmitInput("submit", "submit_id", "Submit"));
 //$form->printInputs();
 
 ?>

@@ -4,9 +4,11 @@ namespace Html;
 
 class TextInput extends Input
 {
-    public function __construct( string $name, mixed $id, string $labelName)
+    private string $labelName;
+
+    public function __construct(string $name, mixed $id, string $labelName)
     {
-        parent::__construct($name, $id, $labelName);
+        parent::__construct($name, $id);
         $this->labelName = $labelName;
     }
 
