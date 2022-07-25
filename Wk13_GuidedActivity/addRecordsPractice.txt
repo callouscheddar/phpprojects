@@ -1,0 +1,7 @@
+'additional records to practice
+
+21	Charmine Fraine	cfrainek@seesaa.net	65450),
+22	Cornelle Koppeck ckoppeckl@photobucket.com 67850),
+23	Gerik Woolger	gwoolgerm@twitpic.com 68500),
+24	Ilsa Frow ifrown@flickr.com	71500),
+25	Teador Dwyr tdwyro@skype.com 70250);
