@@ -17,4 +17,4 @@
     </script>
 </head>
 <body>
-<div class="container" style="width: 600px"">
+<div class="container" style="width: 600px">

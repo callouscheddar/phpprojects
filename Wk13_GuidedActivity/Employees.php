@@ -36,6 +36,7 @@ class Employees
         // Create a loop to store records in assoc array
         while ($row = mysqli_fetch_assoc($result)) {
             $employees[] = [
+                'id' => $row['id'],
                 'name' => $row['name'],
                 'email' => $row['email'],
                 'salary' => $row['salary'],
@@ -44,7 +45,7 @@ class Employees
         return $employees;
     }
 
-    public static function insert(array $data)
+    public static function insert(array $data): void
     {
         $link = self::getConnection();
         $sql = "INSERT INTO employees (name, email, salary) VALUES (?, ?, ?)";
@@ -58,11 +59,40 @@ class Employees
                 // Records created successfully. Redirect to landing page
                 header("location: index.php");
                 self::closeConnection();
+                mysqli_stmt_close($stmt);
                 exit();
             } else {
                 echo "Something went wrong. Please try again later.";
             }
         }
+
+        mysqli_stmt_close($stmt);
+    }
+
+    static function delete($id): bool
+    {
+        $link = self::getConnection();
+        $sql = "DELETE FROM employees WHERE id = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $id);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Records deleted successfully. Redirect to home page
+                header("location: ../index.php");
+                mysqli_stmt_close($stmt);
+                self::closeConnection();
+                exit();
+            } else {
+                // Error in deletion.
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        mysqli_stmt_close($stmt);
+        self::closeConnection();
     }
 
     static function closeConnection(): void

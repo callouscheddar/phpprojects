@@ -8,6 +8,7 @@
 namespace Controller;
 
 use Database\Employees;
+
 require_once 'Employees.php';
 
 class EmployeeController
@@ -26,7 +27,7 @@ class EmployeeController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['salary'])) {
                 // Validate our inputs
-                $name = preg_match("/^[a-zA-Z-' ]*$/", $_POST['name']);
+                $name = htmlspecialchars($_POST['name']);
                 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
                 $salary = filter_var($_POST['salary'], FILTER_VALIDATE_INT);
 
@@ -46,6 +47,34 @@ class EmployeeController
             return $errors;
         }
         return '';
+    }
+
+    static function renderEmployeeTable(): void
+    {
+        foreach (Employees::all() as $employee) {
+            echo '<tr>
+                <td>' . $employee['name'] . '</td>
+                <td>' . $employee['email'] . '</td>
+                <td>' . $employee['salary'] . '</td>
+                <td><a href="delete.php/?id=' . $employee['id'] . '">Delete</a></td>
+                <td><a href="edit.php/?id=' . $employee['id'] . '">Edit</a></td>
+            </tr>';
+        }
+    }
+
+    static function deleteEmployee(): void
+    {
+        if (isset($_POST["id"]) && !empty($_POST["id"]))
+        {
+            $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+            Employees::delete($id);
+        }
+
+        if(empty(trim($_GET["id"]))){
+            // URL doesn't contain id parameter. Redirect back to home page
+            header("location: ../index.php");
+            exit();
+        }
     }
 
     static function stickyInput($input): string

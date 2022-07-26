@@ -1,9 +1,8 @@
 <?php
-// Create employees object
 include __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/Employees.php';
+require_once __DIR__ . '/EmployeeController.php';
 
-use Database\Employees;
+use Controller\EmployeeController as Control;
 ?>
 
 <div class="col-md-12">
@@ -18,16 +17,12 @@ use Database\Employees;
                 <td>Name</td>
                 <td>Email</td>
                 <td>Salary</td>
+                <td>Delete</td>
+                <td>Edit</td>
             </tr>
             </thead>
             <tbody>
-            <?php foreach (Employees::all() as $employee): ?>
-                <tr>
-                    <td><?= $employee['name'] ?></td>
-                    <td><?= $employee['email'] ?></td>
-                    <td><?= $employee['salary'] ?></td>
-                </tr>
-            <?php endforeach ?>
+                <?= Control::renderEmployeeTable() ?>
             </tbody>
         </table>
     </div>
